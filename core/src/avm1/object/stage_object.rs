@@ -740,16 +740,18 @@ fn set_high_quality<'gc>(
     Ok(())
 }
 
-fn focus_rect<'gc>(activation: &mut Activation<'_, 'gc>, _this: DisplayObject<'gc>) -> Value<'gc> {
+fn focus_rect<'gc>(activation: &mut Activation<'_, 'gc>, this: DisplayObject<'gc>) -> Value<'gc> {
+    this.focus_rect();
     avm_warn!(activation, "Unimplemented property _focusrect");
     Value::Null
 }
 
 fn set_focus_rect<'gc>(
     activation: &mut Activation<'_, 'gc>,
-    _this: DisplayObject<'gc>,
-    _val: Value<'gc>,
+    this: DisplayObject<'gc>,
+    val: Value<'gc>,
 ) -> Result<(), Error<'gc>> {
+    this.set_focus_rect(activation.context.gc_context, val.as_bool(activation.swf_version()));
     avm_warn!(activation, "Unimplemented property _focusrect");
     Ok(())
 }

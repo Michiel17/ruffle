@@ -45,6 +45,7 @@ pub struct Avm1ButtonData<'gc> {
     tracking: ButtonTracking,
     object: Option<Object<'gc>>,
     initialized: bool,
+    focus_rect: bool,
     has_focus: bool,
 }
 
@@ -90,6 +91,7 @@ impl<'gc> Avm1Button<'gc> {
                 } else {
                     ButtonTracking::Push
                 },
+                focus_rect: true,
                 has_focus: false,
             },
         ))
@@ -391,6 +393,14 @@ impl<'gc> TDisplayObject<'gc> for Avm1Button<'gc> {
 
     fn allow_as_mask(&self) -> bool {
         !self.is_empty()
+    }
+
+    fn focus_rect(&self) -> bool {
+        self.0.read().focus_rect
+    }
+
+    fn set_focus_rect(&self, gc_context: &Mutation<'gc>, enable: bool) {
+        self.0.write(gc_context).focus_rect = enable;
     }
 
     fn is_focusable(&self, _context: &mut UpdateContext<'_, 'gc>) -> bool {

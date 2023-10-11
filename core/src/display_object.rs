@@ -1766,6 +1766,12 @@ pub trait TDisplayObject<'gc>:
         self.base_mut(gc_context).set_has_scroll_rect(value)
     }
 
+    fn focus_rect(&self) -> bool {
+        false
+    }
+
+    fn set_focus_rect(&self, _gc_context: &Mutation<'gc>, _enable: bool) {}
+
     /// Called whenever the focus tracker has deemed this display object worthy, or no longer worthy,
     /// of being the currently focused object.
     /// This should only be called by the focus manager. To change a focus, go through that.
